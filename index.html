@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      body {
+        font-family: space Grotesk;
+      }
+      .btn {
+        background-color: rgb(234, 235, 234);
+        border-radius: 4px;
+        padding: 12px;
+      }
+      .btn:hover {
+        background-color: rgb(225, 227, 225);
+      }
+      .correct {
+        animation: correctFlash 1s ease 0s forwards;
+      }
+      @keyframes correctFlash {
+        0% {
+          background-color: white;
+        }
+        100% {
+          background-color: #9aeabc;
+          color: black;
+        }
+      }
+      .wrong {
+        animation: wrongFlash 1s ease 0s forwards;
+      }
+      @keyframes wrongFlash {
+        0% {
+          background-color: white;
+        }
+        100% {
+          background-color: #ff9393;
+          color: black;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!-- Header -->
+  <div class="fixed top-0 left-0 z-50 w-full py-4 text-2xl text-center text-gray-300 bg-gray-800 border-b-2 shadow-xl border-b-red-500" id="header">
+    <p>Quiz Application</p>
+  </div>
+    
+    <!--  Main section -->
+    <div class="flex items-center justify-center min-h-screen px-4 text-center bg-[#262e39]" id="quizCards">
+       
+          <!-- all cards -->
+      <div class="grid w-full grid-cols-1 gap-8 pt-24 xl:pt-4 sm:grid-cols-2 xl:grid-cols-4 max-w-7xl animate__animated animate__backInDown">
+        
+        <!-- MONGO DB -->
+        <div class="flex flex-col items-center justify-center gap-3 px-5 py-6 transition-transform duration-300 bg-white rounded-lg shadow-2xl cursor-pointer hover:scale-110">
+          <h2 class="text-2xl font-extrabold text-green-600">MONGO DB</h2>
+          <img src="./Images/mongodb_logo.png" alt="" class="w-40 md:w-48" />
+          <div class="text-white bg-green-600 rounded-md hover:border-green-600 hover:text-green-600 hover:bg-white hover:border-2">
+            <button class="px-10 py-2 md:px-16" id="mongoBtn">Start Quiz</button>
+          </div>
+        </div>
+      
+        <!-- EXPRESS JS -->
+        <div class="flex flex-col items-center justify-center gap-3 px-5 py-6 transition-transform duration-300 bg-white rounded-lg shadow-2xl cursor-pointer hover:scale-110">
+          <h2 class="text-2xl font-extrabold text-red-400">EXPRESS JS</h2>
+          <img src="./Images/express_logo.jpg" alt="" class="w-40 md:w-48" />
+          <div class="text-white bg-red-500 rounded-md hover:border-red-400 hover:text-red-500 hover:bg-white hover:border-2">
+            <button class="px-10 py-2 md:px-16" id="expressBtn">Start Quiz</button>
+          </div>
+        </div>
+      
+        <!-- REACT JS -->
+        <div class="flex flex-col items-center justify-center gap-3 px-5 py-6 transition-transform duration-300 bg-white rounded-lg shadow-2xl cursor-pointer hover:scale-110">
+          <h2 class="text-2xl font-extrabold text-blue-400">REACT JS</h2>
+          <img src="./Images/react_logo.png" alt="" class="w-40 md:w-48" />
+          <div class="text-white bg-blue-500 rounded-md hover:border-blue-400 hover:text-blue-500 hover:bg-white hover:border-2">
+            <button class="px-10 py-2 md:px-16" id="reactBtn">Start Quiz</button>
+          </div>
+        </div>
+      
+        <!-- NODE JS -->
+        <div class="flex flex-col items-center justify-center gap-3 px-5 py-6 transition-transform duration-300 bg-white rounded-lg shadow-2xl cursor-pointer hover:scale-110">
+          <h2 class="text-2xl font-extrabold text-green-400">NODE JS</h2>
+          <img src="./Images/node_logo.png" alt="" class="w-40 md:w-48" />
+          <div class="text-white bg-green-500 rounded-md hover:border-green-500 hover:text-green-500 hover:bg-white hover:border-2">
+            <button class="px-10 py-2 md:px-16" id="nodeBtn">Start Quiz</button>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+          
+    <!-- show Questions -->
+
+    
+    <div class="items-center justify-center hidden h-screen bg-[url('./Images/background.png')] bg-cover bg-top bg-no-repeat bg-[#0B0E12]" id="questions">
+      <div class="relative w-full max-w-md text-black bg-white rounded-lg animate__animated animate__backInDown" >
+        <div class="flex flex-col gap-5 p-6">
+          <div id="quizHeading" class="pb-2 text-2xl font-semibold text-center border-b-2 border-gray-400" >
+            <p id="cardTitle"></p>
+          </div>
+          <div id="questionDisplay" class="font-medim">
+            <p>Questions goes here</p>
+          </div>
+          <div id="optionsDisplay" class="flex flex-col w-full gap-3 text-gray-700 text-md font-libertinus">
+            <button class="btn">options 1</button>
+            <button class="btn">options 2</button>
+            <button class="btn">options 3</button>
+            <button class="btn">options 4</button>
+          </div>
+          <div class="flex justify-between">
+            <div class="text-red-500 bg-white border-2 border-red-400 rounded-md hover:text-white hover:bg-red-500 hover:border-none">
+              <button class="px-10 py-2" id="quitBtn">Quit</button>
+            </div>
+            <div class="text-white bg-blue-500 rounded-md hover:bg-blue-800">
+              <button class="px-10 py-2" id="nextBtnDisplay">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Show Result -->
+    
+    
+    <div class="items-center justify-center h-screen bg-[url('./Images/background.png')] bg-cover bg-top bg-no-repeat bg-[#0B0E12] hidden" id="result">
+      <div class="w-full max-w-md text-black bg-white rounded-lg animate__animated animate__backInDown">
+        <div class="flex flex-col gap-5 p-6">
+          <div class="pb-2 text-2xl font-bold text-center text-blue-500 border-b-2 border-gray-800">
+            <p id="resultTitle"></p>
+          </div>
+          <div id="resultHeading" class="text-2xl font-semibold text-center">
+            <p>Result</p>
+          </div>
+          <div id="score" class="text-lg text-center font-ubuntu"></div>
+          <div class="flex justify-center">
+            <div id="percentage" class="flex items-center justify-center p-4 font-sans text-2xl font-bold text-center text-gray-700 rounded-full"></div>
+          </div>
+          <div class="flex items-center justify-center py-1.5 text-white bg-blue-500 rounded-md cursor-pointer hover:border-blue-400 hover:text-blue-500 hover:bg-white hover:border-2" id="exitResult">
+            <button>Exit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
